@@ -1,0 +1,16 @@
+[Unit]
+Description = Oozie Server
+After = syslog.target network.target remote-fs.target
+
+[Service]
+User = <%= node.epipe.user %>
+
+PIDFile = <%= node.epipe.home %>/epipe-server/temp/epipe.pid
+ExecStart = <%= node.epipe.home %>/bin/epipe-start.sh
+ExecStop = <%= node.epipe.home %>/bin/epipe-stop.sh
+LimitNOFILE = 10000
+
+Type = forking
+
+[Install]
+WantedBy = multi-user.target

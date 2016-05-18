@@ -12,6 +12,10 @@ source_url       "https://github.com/hopshadoop/epipe-chef"
 end
 
 depends 'java'
+depends 'ndb'
+depends 'apache_hadoop'
+depends 'hops'
+depends 'elastic'
 
 recipe "epipe::default", "Installs and configures Epipe Server"
 

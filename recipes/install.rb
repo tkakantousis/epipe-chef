@@ -10,6 +10,7 @@ remote_file cached_package_filename do
 end
 
 nn = private_recipe_ip("apache_hadoop", "nn") + ":#{node.apache_hadoop.nn.port}"
+elastic = private_recipe_ip("elastic", "default") + ":#{node.elastic.port}"
 
 epipe_downloaded = "#{node.epipe.dir}/.epipe.extracted_#{node.epipe.version}"
 # Extract epipe
@@ -52,12 +53,18 @@ end
 #            })
 # end
 
+ndb_connectstring()
 
 template"#{node.epipe.home}/bin/start-epipe.sh" do
   source "start-epipe.sh.erb"
   owner node.epipe.user
   group node.epipe.group
   mode 0750
+   variables({ :ndb_connectstring => node.ndb.connectstring,
+               :database => "hops",
+               :meta_database => "hopsworks",
+               :elastic_addr => elastic,
+            })
 end
 
 template"#{node.epipe.home}/bin/stop-epipe.sh" do

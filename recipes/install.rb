@@ -1,4 +1,3 @@
-
 package_url = "#{node.epipe.url}"
 base_package_filename = File.basename(package_url)
 cached_package_filename = "#{Chef::Config.file_cache_path}/#{base_package_filename}"
@@ -13,7 +12,7 @@ end
 nn = private_recipe_ip("apache_hadoop", "nn") + ":#{node.apache_hadoop.nn.port}"
 
 epipe_downloaded = "#{node.epipe.dir}/.epipe.extracted_#{node.epipe.version}"
-# Extract Oozie
+# Extract epipe
 bash 'extract_epipe' do
         user "root"
         code <<-EOH
@@ -37,11 +36,11 @@ link node.epipe.home do
   to node.epipe.base_dir
 end
 
+
 # file "#{node.epipe.home}/conf/epipe-site.xml" do
 #   action :delete
 # end
 
-# # Assume there is a mysql server running on the same host as the Oozie server
 # private_ip = my_private_ip()
 
 # template"#{node.epipe.home}/conf/epipe-site.xml" do
@@ -52,4 +51,20 @@ end
 #   variables({ 
 #            })
 # end
+
+
+template"#{node.epipe.home}/bin/start-epipe.sh" do
+  source "start-epipe.sh.erb"
+  owner node.epipe.user
+  group node.epipe.group
+  mode 0750
+end
+
+template"#{node.epipe.home}/bin/stop-epipe.sh" do
+  source "stop-epipe.sh.erb"
+  owner node.epipe.user
+  group node.epipe.group
+  mode 0750
+end
+
 

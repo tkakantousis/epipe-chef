@@ -1,4 +1,0 @@
-#!/bin/bash
-
-#<%= node.epipe.home %>/bin/epipedb.sh create -sqlfile __sql file output__ -run
-<%= node.epipe.home %>/bin/epiped.sh start

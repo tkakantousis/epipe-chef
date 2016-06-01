@@ -69,6 +69,3 @@ if node.kagent.enabled == "true"
      web_port 11000
    end
 end
-
-
-

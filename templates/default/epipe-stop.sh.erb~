@@ -1,3 +1,0 @@
-#!/bin/bash
-
-<%= node.epipe.home %>/bin/epiped.sh stop

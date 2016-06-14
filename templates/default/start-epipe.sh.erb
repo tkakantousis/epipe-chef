@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export LD_LIBRARY_PATH="<%= node.mysql.dir %>/mysql/lib:${LD_LIBRARY_PATH}:/opt/chef/embedded/lib/"
+export LD_LIBRARY_PATH="<%= node.mysql.dir %>/mysql/lib:${LD_LIBRARY_PATH}"
 
 PID_FILE=/tmp/epipe.pid
 if [ -f $PID_FILE ] ; then

@@ -22,7 +22,7 @@ if node.epipe.systemd == "true"
   case node.platform_family
   when "rhel"
     systemd_script = "/usr/lib/systemd/system/#{service_name}.service" 
-  else
+  when "debian"
     systemd_script = "/lib/systemd/system/#{service_name}.service"
   end
 

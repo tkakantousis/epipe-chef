@@ -6,4 +6,4 @@ dependencies:
   - recipe: epipe::default
     global:  
       - elastic::default
-      - hops::nn
+      - hops::dn

@@ -65,7 +65,7 @@ if node.kagent.enabled == "true"
      start_script "#{node.epipe.home}/bin/epipe-start.sh"
      stop_script "#{node.epipe.home}/bin/epipe-stop.sh"
      log_file "#{node.epipe.home}/logs/epipe.log"
-     pid_file "<%= node.epipe.home %>/epipe-server/temp/epipe.pid"
+     pid_file "#{node.epipe.home}/epipe-server/temp/epipe.pid"
      web_port 11000
    end
 end

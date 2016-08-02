@@ -61,7 +61,7 @@ end
 
 if node.kagent.enabled == "true" 
    kagent_config service_name do
-     service "epipe"
+     service service_name
      start_script "#{node.epipe.home}/bin/epipe-start.sh"
      stop_script "#{node.epipe.home}/bin/epipe-stop.sh"
      log_file "#{node.epipe.home}/logs/epipe.log"

@@ -17,7 +17,7 @@
 
 START_PROG="<%= node.epipe.home %>/bin/start-epipe.sh"
 STOP_PROG="<%= node.epipe.home %>/bin/stop-epipe.sh"  
-
+PID_FILE=<%= node.epipe.pid_file %>
 RETVAL=0
 
 ulimit -n 65000
@@ -41,7 +41,6 @@ restart() {
 }
 
 status() {
-  PID_FILE=
   if [ -f $PID_FILE ] ; then
      PID=`cat $PID_FILE`
      kill -0 $PID

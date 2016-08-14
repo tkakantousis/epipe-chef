@@ -2,7 +2,7 @@
 
 export LD_LIBRARY_PATH="<%= node.mysql.dir %>/mysql/lib:${LD_LIBRARY_PATH}"
 
-PID_FILE=/tmp/epipe.pid
+PID_FILE=<%= node.epipe.pid_file %>
 if [ -f $PID_FILE ] ; then
  PID=`cat $PID_FILE`
  kill -0 $PID 2>&1 > /dev/null
@@ -14,4 +14,4 @@ fi
 
 
 nohup <%= node.epipe.home %>/bin/epipe --connection <%= @ndb_connectstring %> --database <%= @database %> --meta_database <%= @meta_database %> --elastic_addr <%= @elastic_addr %> 2>&1 > <%= node.epipe.home %>/epipe.log &
-echo $! > /tmp/epipe.pid
+echo $! > $PID_FILE

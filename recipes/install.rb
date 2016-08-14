@@ -10,7 +10,7 @@ end
 
 group node.epipe.group do
   action :modify
-   members ["#{node.epipe.user}"]
+  members ["#{node.epipe.user}"]
   append true
 end
 

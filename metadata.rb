@@ -18,6 +18,7 @@ depends 'hops'
 depends 'elastic'
 
 recipe "epipe::default", "Installs and configures Epipe Server"
+recipe "epipe::purge", "Deletes the Epipe Server"
 
 attribute "epipe/user",
 :description => "User to run Epipe server as",

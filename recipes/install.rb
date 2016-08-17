@@ -30,7 +30,7 @@ end
 nn = private_recipe_ip("apache_hadoop", "nn") + ":#{node.apache_hadoop.nn.port}"
 elastic = private_recipe_ip("elastic", "default") + ":#{node.elastic.port}"
 
-epipe_downloaded = "#{node.epipe.dir}/.epipe.extracted_#{node.epipe.version}"
+epipe_downloaded = "#{node.epipe.base_dir}/.epipe.extracted_#{node.epipe.version}"
 # Extract epipe
 bash 'extract_epipe' do
         user "root"
@@ -39,7 +39,7 @@ bash 'extract_epipe' do
                 chown -R #{node.epipe.user}:#{node.epipe.group} #{node.epipe.base_dir}
                 cd #{node.epipe.base_dir}
                 touch #{epipe_downloaded}
-                chown #{node.epipe.user} #{node.epipe.dir}/.epipe.extracted_#{node.epipe.version}
+                chown #{node.epipe.user} #{epipe_downloaded}
         EOH
      not_if { ::File.exists?( epipe_downloaded ) }
 end

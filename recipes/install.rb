@@ -15,6 +15,7 @@ group node.epipe.group do
 end
 
 
+include_recipe "java"
 
 package_url = "#{node.epipe.url}"
 base_package_filename = File.basename(package_url)

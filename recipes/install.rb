@@ -1,10 +1,10 @@
 
 user node.epipe.user do
-  supports :manage_home => true
   home "/home/#{node.epipe.user}"
   action :create
   system true
   shell "/bin/bash"
+  manage_home true
   not_if "getent passwd #{node.epipe.user}"
 end
 

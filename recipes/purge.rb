@@ -33,3 +33,12 @@
   end
 
 
+package_url = "#{node.epipe.url}"
+base_package_filename = File.basename(package_url)
+cached_package_filename = "/tmp/#{base_package_filename}"
+
+file cached_package_filename do
+  action :delete
+  ignore_failure true
+end
+

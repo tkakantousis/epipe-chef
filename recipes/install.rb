@@ -43,7 +43,7 @@ bash 'extract_epipe' do
      not_if { ::File.exists?( epipe_downloaded ) }
 end
 
-file node.epipe.home do
+file node.epipe.base_dir do
   action :delete
   force_unlink true  
 end

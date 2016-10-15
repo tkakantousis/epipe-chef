@@ -29,14 +29,14 @@ remote_file cached_package_filename do
 end
 
 
-epipe_downloaded = "#{node.epipe.base_dir}/.epipe.extracted_#{node.epipe.version}"
+epipe_downloaded = "#{node.epipe.home}/.epipe.extracted_#{node.epipe.version}"
 # Extract epipe
 bash 'extract_epipe' do
         user "root"
         code <<-EOH
                 tar -xf #{cached_package_filename} -C #{node.epipe.dir}
-                chown -R #{node.epipe.user}:#{node.epipe.group} #{node.epipe.base_dir}
-                cd #{node.epipe.base_dir}
+                chown -R #{node.epipe.user}:#{node.epipe.group} #{node.epipe.home}
+                cd #{node.epipe.home}
                 touch #{epipe_downloaded}
                 chown #{node.epipe.user} #{epipe_downloaded}
         EOH
@@ -48,8 +48,8 @@ file node.epipe.home do
   force_unlink true  
 end
 
-link node.epipe.home do
+link node.epipe.base_dir do
   owner node.epipe.user
   group node.epipe.group
-  to node.epipe.base_dir
+  to node.epipe.home
 end

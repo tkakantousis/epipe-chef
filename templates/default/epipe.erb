@@ -15,8 +15,8 @@
 
 # Variables
 
-START_PROG="<%= node.epipe.home %>/bin/start-epipe.sh"
-STOP_PROG="<%= node.epipe.home %>/bin/stop-epipe.sh"  
+START_PROG="<%= node.epipe.base_dir %>/bin/start-epipe.sh"
+STOP_PROG="<%= node.epipe.base_dir %>/bin/stop-epipe.sh"  
 PID_FILE=<%= node.epipe.pid_file %>
 EXEC_WITH_USER="su <%= node.epipe.user %> -c"
 

@@ -6,8 +6,8 @@ After = syslog.target network.target remote-fs.target
 User = <%= node.epipe.user %>
 
 PIDFile = <%= node.epipe.pid_file %>
-ExecStart = <%= node.epipe.home %>/bin/start-epipe.sh
-ExecStop = <%= node.epipe.home %>/bin/stop-epipe.sh
+ExecStart = <%= node.epipe.base_dir %>/bin/start-epipe.sh
+ExecStop = <%= node.epipe.base_dir %>/bin/stop-epipe.sh
 LimitNOFILE = 20000
 
 Type = forking

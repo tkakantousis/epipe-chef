@@ -7,13 +7,13 @@ elastic = private_recipe_ip("elastic", "default") + ":#{node.elastic.port}"
 
 
 
-# file "#{node.epipe.home}/conf/epipe-site.xml" do
+# file "#{node.epipe.base_dir}/conf/epipe-site.xml" do
 #   action :delete
 # end
 
 # private_ip = my_private_ip()
 
-# template"#{node.epipe.home}/conf/epipe-site.xml" do
+# template"#{node.epipe.base_dir}/conf/epipe-site.xml" do
 #   source "epipe-site.xml.erb"
 #   owner node.epipe.user
 #   group node.epipe.group
@@ -24,7 +24,7 @@ elastic = private_recipe_ip("elastic", "default") + ":#{node.elastic.port}"
 
 ndb_connectstring()
 
-template"#{node.epipe.home}/bin/start-epipe.sh" do
+template"#{node.epipe.base_dir}/bin/start-epipe.sh" do
   source "start-epipe.sh.erb"
   owner node.epipe.user
   group node.epipe.group
@@ -36,7 +36,7 @@ template"#{node.epipe.home}/bin/start-epipe.sh" do
             })
 end
 
-template"#{node.epipe.home}/bin/stop-epipe.sh" do
+template"#{node.epipe.base_dir}/bin/stop-epipe.sh" do
   source "stop-epipe.sh.erb"
   owner node.epipe.user
   group node.epipe.group
@@ -107,6 +107,6 @@ end
 if node.kagent.enabled == "true" 
    kagent_config service_name do
      service service_name
-     log_file "#{node.epipe.home}/epipe.log"
+     log_file "#{node.epipe.base_dir}/epipe.log"
    end
 end

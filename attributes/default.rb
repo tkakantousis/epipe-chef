@@ -5,7 +5,7 @@ include_attribute "ndb"
 include_attribute "elastic"
 include_attribute "elasticsearch"
 
-default.epipe.version                  = "0.3.0"
+default.epipe.version                  = "0.4.0"
 default.epipe.user                     = node.apache_hadoop.hdfs.user
 default.epipe.group                    = node.apache_hadoop.group
 default.epipe.url                      = "#{node.download_url}/epipe/#{node.platform_family}/epipe-#{node.epipe.version}.tar.gz"

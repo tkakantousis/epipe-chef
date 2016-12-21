@@ -34,6 +34,10 @@ epipe_downloaded = "#{node.epipe.home}/.epipe.extracted_#{node.epipe.version}"
 bash 'extract_epipe' do
         user "root"
         code <<-EOH
+                if [ ! -d #{node.epipe.dir} ] ; then
+                   mkdir -p #{node.epipe.dir}
+                   chown -R #{node.epipe.user}:#{node.epipe.group} #{node.epipe.dir}
+                fi
                 tar -xf #{cached_package_filename} -C #{node.epipe.dir}
                 chown -R #{node.epipe.user}:#{node.epipe.group} #{node.epipe.home}
                 cd #{node.epipe.home}

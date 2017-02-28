@@ -2,7 +2,7 @@ nmy_ip = my_private_ip()
 my_public_ip = my_public_ip()
 
 
-nn = private_recipe_ip("apache_hadoop", "nn") + ":#{node.apache_hadoop.nn.port}"
+nn = private_recipe_ip("hops", "nn") + ":#{node.hops.nn.port}"
 elastic = private_recipe_ip("elastic", "default") + ":#{node.elastic.port}"
 
 
@@ -82,7 +82,7 @@ end
     notifies :start, resources(:service => service_name), :immediately
   end
 
-  apache_hadoop_start "reload_epipe_daemon" do
+  hops_start "reload_epipe_daemon" do
     action :systemd_reload
   end  
 

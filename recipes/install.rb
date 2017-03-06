@@ -1,6 +1,12 @@
 
+group node.epipe.group do
+  action :create
+  not_if "getent group #{node.epipe.group}"
+end
+
 user node.epipe.user do
   home "/home/#{node.epipe.user}"
+  gid node.epipe.group
   action :create
   shell "/bin/bash"
   manage_home true

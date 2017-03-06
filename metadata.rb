@@ -45,3 +45,7 @@ attribute "epipe/pid_file",
           :description => "Change the location for the pid_file.",
           :type => "string"
 
+attribute "install/dir",
+          :description => "Set to a base directory under which we will install.",
+          :type => "string"
+

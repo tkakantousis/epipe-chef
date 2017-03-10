@@ -13,7 +13,6 @@ end
 
 depends 'java'
 depends 'ndb'
-depends 'apache_hadoop'
 depends 'hops'
 depends 'elastic'
 

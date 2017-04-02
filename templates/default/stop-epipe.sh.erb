@@ -6,7 +6,7 @@
 PID_FILE=/tmp/epipe.pid
 
 function kill_named {
-    PID=`ps aux | grep -i epipe | awk '{print $2}'`
+    PID=`ps aux | grep -i epipe | awk '{print $2}' | grep -v grep`
     if [ "$PID" != "" ] ; then
 	kill -9 $PID > /dev/null 2>&1
         res=$?

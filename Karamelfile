@@ -1,5 +1,7 @@
 dependencies: 
   - recipe: epipe::install
+    local:
+      - ndb::install    
     global:  
       - hopsworks::default
       - elastic::install

@@ -21,19 +21,19 @@
     ignore_failure true
   end
 
-  directory node[:epipe][:home] do
+  directory node['epipe']['home'] do
     recursive true
     action :delete
     ignore_failure true
   end
 
-  link node[:epipe][:base_dir] do
+  link node['epipe']['base_dir'] do
     action :delete
     ignore_failure true
   end
 
 
-package_url = "#{node.epipe.url}"
+package_url = "#{node['epipe']['url']}"
 base_package_filename = File.basename(package_url)
 cached_package_filename = "/tmp/#{base_package_filename}"
 

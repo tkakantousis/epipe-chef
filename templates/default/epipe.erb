@@ -15,10 +15,10 @@
 
 # Variables
 
-START_PROG="<%= node.epipe.base_dir %>/bin/start-epipe.sh"
-STOP_PROG="<%= node.epipe.base_dir %>/bin/stop-epipe.sh"  
-PID_FILE=<%= node.epipe.pid_file %>
-EXEC_WITH_USER="su <%= node.epipe.user %> -c"
+START_PROG="<%= node['epipe']['base_dir'] %>/bin/start-epipe.sh"
+STOP_PROG="<%= node['epipe']['base_dir'] %>/bin/stop-epipe.sh"  
+PID_FILE=<%= node['epipe']['pid_file'] %>
+EXEC_WITH_USER="su <%= node['epipe']['user'] %> -c"
 
 start() {
   ulimit -n 65000 2>&1 > /dev/null

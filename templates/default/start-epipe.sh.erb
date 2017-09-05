@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export LD_LIBRARY_PATH="<%= node.mysql.dir %>/mysql/lib:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="<%= node['mysql']['dir'] %>/mysql/lib:${LD_LIBRARY_PATH}"
 
-PID_FILE=<%= node.epipe.pid_file %>
+PID_FILE=<%= node['epipe']['pid_file'] %>
 if [ -f $PID_FILE ] ; then
  PID=`cat $PID_FILE`
  kill -0 $PID 2>&1 > /dev/null
@@ -13,5 +13,5 @@ if [ -f $PID_FILE ] ; then
 fi
 
 
-nohup <%= node.epipe.base_dir %>/bin/epipe --connection <%= @ndb_connectstring %> --database <%= @database %> --meta_database <%= @meta_database %> --elastic_addr <%= @elastic_addr %> 2>&1 > <%= node.epipe.base_dir %>/epipe.log &
+nohup <%= node['epipe']['base_dir'] %>/bin/epipe --connection <%= @ndb_connectstring %> --database <%= @database %> --meta_database <%= @meta_database %> --elastic_addr <%= @elastic_addr %> 2>&1 > <%= node['epipe']['base_dir'] %>/epipe.log &
 echo $! > $PID_FILE

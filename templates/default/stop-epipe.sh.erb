@@ -2,7 +2,7 @@
 
 
 
-#PID_FILE=<%= node.epipe.base_dir %>/epipe.pid
+#PID_FILE=<%= node['epipe']['base_dir'] %>/epipe.pid
 PID_FILE=/tmp/epipe.pid
 
 function kill_named {

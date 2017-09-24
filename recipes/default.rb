@@ -2,21 +2,21 @@ nmy_ip = my_private_ip()
 my_public_ip = my_public_ip()
 
 
-nn = private_recipe_ip("hops", "nn") + ":#{node.hops.nn.port}"
-elastic = private_recipe_ip("elastic", "default") + ":#{node.elastic.port}"
+nn = private_recipe_ip("hops", "nn") + ":#{node['hops']['nn']['port']}"
+elastic = private_recipe_ip("elastic", "default") + ":#{node['elastic']['port']}"
 
 
 
-# file "#{node.epipe.base_dir}/conf/epipe-site.xml" do
+# file "#{node['epipe']['base_dir']}/conf/epipe-site.xml" do
 #   action :delete
 # end
 
 # private_ip = my_private_ip()
 
-# template"#{node.epipe.base_dir}/conf/epipe-site.xml" do
+# template"#{node['epipe']['base_dir']}/conf/epipe-site.xml" do
 #   source "epipe-site.xml.erb"
-#   owner node.epipe.user
-#   group node.epipe.group
+#   owner node['epipe']['user']
+#   group node['epipe']['group']
 #   mode 0655
 #   variables({ 
 #            })
@@ -24,39 +24,39 @@ elastic = private_recipe_ip("elastic", "default") + ":#{node.elastic.port}"
 
 ndb_connectstring()
 
-template"#{node.epipe.base_dir}/bin/start-epipe.sh" do
+template"#{node['epipe']['base_dir']}/bin/start-epipe.sh" do
   source "start-epipe.sh.erb"
-  owner node.epipe.user
-  group node.epipe.group
+  owner node['epipe']['user']
+  group node['epipe']['group']
   mode 0750
-   variables({ :ndb_connectstring => node.ndb.connectstring,
+   variables({ :ndb_connectstring => node['ndb']['connectstring'],
                :database => "hops",
                :meta_database => "hopsworks",
                :elastic_addr => elastic,
             })
 end
 
-template"#{node.epipe.base_dir}/bin/stop-epipe.sh" do
+template"#{node['epipe']['base_dir']}/bin/stop-epipe.sh" do
   source "stop-epipe.sh.erb"
-  owner node.epipe.user
-  group node.epipe.group
+  owner node['epipe']['user']
+  group node['epipe']['group']
   mode 0750
 end
 
 
 
 
-case node.platform
+case node['platform']
 when "ubuntu"
- if node.platform_version.to_f <= 14.04
-   node.override.epipe.systemd = "false"
+ if node['platform_version'].to_f <= 14.04
+   node.override['epipe']['systemd'] = "false"
  end
 end
 
 
 service_name="epipe"
 
-if node.epipe.systemd == "true"
+if node['epipe']['systemd'] == "true"
 
   service service_name do
     provider Chef::Provider::Service::Systemd
@@ -64,7 +64,7 @@ if node.epipe.systemd == "true"
     action :nothing
   end
 
-  case node.platform_family
+  case node['platform_family']
   when "rhel"
     systemd_script = "/usr/lib/systemd/system/#{service_name}.service" 
   when "debian"
@@ -76,7 +76,7 @@ if node.epipe.systemd == "true"
     owner "root"
     group "root"
     mode 0754
-if node.services.enabled == "true"
+if node['services']['enabled'] == "true"
     notifies :enable, resources(:service => service_name)
 end
     notifies :restart, resources(:service => service_name)
@@ -96,10 +96,10 @@ else #sysv
 
   template "/etc/init.d/#{service_name}" do
     source "#{service_name}.erb"
-    owner node.epipe.user
-    group node.epipe.group
+    owner node['epipe']['user']
+    group node['epipe']['group']
     mode 0754
-if node.services.enabled == "true"
+if node['services']['enabled'] == "true"
     notifies :enable, resources(:service => service_name)
 end
     notifies :restart, resources(:service => service_name), :immediately
@@ -108,9 +108,9 @@ end
 end
 
 
-if node.kagent.enabled == "true" 
+if node['kagent']['enabled'] == "true" 
    kagent_config service_name do
      service service_name
-     log_file "#{node.epipe.base_dir}/epipe.log"
+     log_file "#{node['epipe']['base_dir']}/epipe.log"
    end
 end

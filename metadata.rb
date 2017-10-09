@@ -20,6 +20,10 @@ recipe "epipe::install", "Installs Epipe Server"
 recipe "epipe::default", "configures Epipe Server"
 recipe "epipe::purge", "Deletes the Epipe Server"
 
+attribute "epipe/default/private_ips",
+          :description => "Set ip addresses",
+          :type => "array"
+
 attribute "epipe/user",
           :description => "User to run Epipe server as",
           :type => "string"

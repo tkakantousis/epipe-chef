@@ -29,11 +29,24 @@ template"#{node['epipe']['base_dir']}/bin/start-epipe.sh" do
   owner node['epipe']['user']
   group node['epipe']['group']
   mode 0750
-   variables({ :ndb_connectstring => node['ndb']['connectstring'],
+  variables({ :ndb_connectstring => node['ndb']['connectstring'],
                :database => "hops",
                :meta_database => "hopsworks",
                :elastic_addr => elastic,
             })
+end
+
+template"#{node['epipe']['base_dir']}/bin/reindex-epipe.sh" do
+  source "reindex-epipe.sh.erb"
+  owner node['epipe']['user']
+  group node['epipe']['group']
+  mode 0750
+  variables({ :ndb_connectstring => node['ndb']['connectstring'],
+               :database => "hops",
+               :meta_database => "hopsworks",
+               :elastic_addr => elastic,
+            })
+  only_if { node['elastic']['projects']['reindex'] == "true" }
 end
 
 template"#{node['epipe']['base_dir']}/bin/stop-epipe.sh" do
@@ -43,7 +56,13 @@ template"#{node['epipe']['base_dir']}/bin/stop-epipe.sh" do
   mode 0750
 end
 
-
+#when upgrading, we want to reindex the newly created projects index
+bash 'reindex epipe' do
+  user node['epipe']['user']
+  code <<-EOF
+     #{node['epipe']['base_dir']}/bin/reindex-epipe.sh
+  EOF
+end
 
 
 case node['platform']
